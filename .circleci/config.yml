@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          version: 18.09.3
+          docker_layer_caching: true
+          
+      - run: |
+          TAG=0.$CIRCLE_BUILD_NUM
+          docker build -t sv01a/scp:$TAG ./scp-docker
+          echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+          docker push sv01a/scp:$TAG
