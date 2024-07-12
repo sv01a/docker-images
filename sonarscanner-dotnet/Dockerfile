@@ -1,8 +1,7 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine
+FROM mcr.microsoft.com/dotnet/sdk:8.0.204-alpine3.19
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
-ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
 
-RUN apk add --update openjdk8-jre && \
+RUN apk add --update openjdk17 && \
     rm -rf /var/cache/apk/* && \
     dotnet tool install --global dotnet-sonarscanner
